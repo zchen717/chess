@@ -10,33 +10,45 @@ class Pawn < Piece
   
   #moving one space ahead is always a possible move unless there is any piece in front, then you can add the space two spaces ahead
   def moves
-    forward_moves + side_moves
+    forward_moves + capture_moves
+  end
+  
+  def get_direction
+    (@color == :white) ? -1 : 1
   end
   
   def forward_moves
-    direction = (@color == :white) ? -1 : 1
+    direction = get_direction
     moves = []
-    current = @pos.dup
-    x, y = current
+    x, y = @pos
     x += direction
     if in_bounds?(x, y)
       moves << [x, y] if @board[ [x, y] ].nil?
     end
     
-    return [] if moves.empty?
-    
     if @first_move
       x += direction 
-      p [x, y]
-      p board_pos([x, y]).nil?
-      moves << [x, y] if board_pos([x, y]).nil?
+      moves << [x, y] if @board[ [x, y] ].nil?
       @first_move = false
     end
     moves
   end
   
-  def capture
-    
+  #pawn can capture on diagonals
+  def capture_moves
+    direction = get_direction
+    moves = []
+    x, y = @pos
+    x += direction
+    y += 1
+    if @board[ [x, y] ] && @board[ [x,y] ].color == opponent_color
+      moves << [x, y]
+    end 
+    y -= 2
+    if @board[ [x, y] ] && @board[ [x,y] ].color == opponent_color
+      moves << [x, y]
+    end
+    moves
   end
-  
+    
 end

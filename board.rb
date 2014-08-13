@@ -6,7 +6,7 @@ require_relative 'rook.rb'
 require_relative 'bishop.rb'
 require_relative 'king.rb'
 require_relative 'knight.rb'
-#require_relative 'pawn.rb'
+require_relative 'pawn.rb'
 
 class Board
   attr_accessor :board
@@ -26,13 +26,14 @@ class Board
     self[ [0, 6] ] = Knight.new([0, 6], self, :black)
     self[ [0, 7] ] = Rook.new([0, 7], self, :black)
 
- #   8.times do |index|
-#      self[ [1, index] ] = Pawn.new([1, index], self, :black)
-#    end
+    8.times do |index|
+      self[ [1, index] ] = Pawn.new([1, index], self, :black)
+    end
 
-#     8.times do |index|
-#       self[ [6, index] ] = Pawn.new([6, index], self, :white)
-#     end
+    8.times do |index|
+      self[ [6, index] ] = Pawn.new([6, index], self, :white)
+    end
+    
     self[ [7, 0] ] = Rook.new([7,0], self, :white)
     self[ [7, 1] ] = Knight.new([7, 1], self, :white)
     self[ [7, 2] ] = Bishop.new([7, 2], self, :white)
@@ -98,11 +99,5 @@ end
 
 
 if __FILE__ == $PROGRAM_NAME
-  b = Board.new(true)
- # b[ [4, 1] ] = King.new([4,1], b, :white)
-  b[ [4, 2] ] = Bishop.new( [4,2], b, :white)
-  b[ [4, 4] ] = Rook.new( [4, 3], b, :black)
-  piece = b[ [4,2] ]
-  p b.move( [4, 2], [7, 5] )
- # p piece.valid_moves
+ 
 end

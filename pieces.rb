@@ -36,6 +36,10 @@ class Piece
   def inspect
     puts "#{self.class} #{self.color}"
   end
+  
+  def opponent_color
+    (@color == :white) ? :black : :white
+  end
 
 end
 
