@@ -1,5 +1,3 @@
-#require_relative 'piece.rb'
-
 class Pawn < Piece
   
   def initialize(pos, board, color)
@@ -8,7 +6,6 @@ class Pawn < Piece
   end
   
   
-  #moving one space ahead is always a possible move unless there is any piece in front, then you can add the space two spaces ahead
   def moves
     forward_moves + capture_moves
   end
