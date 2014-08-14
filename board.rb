@@ -94,8 +94,7 @@ class Board
   def find_king(color)
     self.color(color).find { |piece| piece.is_a?(King) }
   end
-  
-  #search all availble pieces of opposite color and check to see if any of  their valid moves include the coordinates of where our color's king is.
+
   def in_check?(color)
     color(self.opponent_color(color)).any? do |piece| 
       piece.moves.include?(find_king(color).pos)
