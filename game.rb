@@ -29,12 +29,18 @@ class Game
   
   def play_game
     @board.display
-    until @board.checkmate?(:white) || @board.checkmate?(:black)
+    until game_over?
       @player1.play_turn
       @board.display
+      break if game_over?
       @player2.play_turn
       @board.display
     end
+    puts "Checkmate!"
+  end
+  
+  def game_over?
+    @board.checkmate?(:white) || @board.checkmate?(:black)
   end
 
 end
@@ -58,10 +64,9 @@ class HumanPlayer
   
   def coord_translate(coord)
     y_coord, x_coord = coord.split("")
+    y_coord.upcase!
     letter_array = ('A'..'H').to_a
     num_array = (1..8).to_a.reverse
-    #p num_array
-    #p "Coord Translate #{y_coord}, #{x_coord.class}"
     actual_y_index = letter_array.index(y_coord)
     actual_x_index = num_array.index(x_coord.to_i)
     [actual_x_index, actual_y_index]

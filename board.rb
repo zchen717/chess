@@ -15,32 +15,27 @@ class Board
     start_config if start_condition
   end
 
-  def start_config#(start_condition)
-    self[ [0, 0] ] = Rook.new([0,0], self, :black)
-    self[ [0, 1] ] = Knight.new([0, 1], self, :black)
-    self[ [0, 2] ] = Bishop.new([0, 2], self, :black)
-    self[ [0, 3] ] = Queen.new([0, 3], self, :black)
-    self[ [0, 4] ] = King.new([0, 4], self, :black)
-    self[ [0, 5] ] = Bishop.new([0, 5], self, :black)
-    self[ [0, 6] ] = Knight.new([0, 6], self, :black)
-    self[ [0, 7] ] = Rook.new([0, 7], self, :black)
-
+  def start_config
+    fill_back_row(:white)
+    fill_pawns(:white)
+    fill_pawns(:black)
+    fill_back_row(:black)
+  end
+  
+  def fill_pawns(color)
+    row_num = (color == :white) ? 6 : 1
     8.times do |index|
-      self[ [1, index] ] = Pawn.new([1, index], self, :black)
+      self[ [row_num, index] ] = Pawn.new([row_num, index], self, color)
     end
-
-    8.times do |index|
-      self[ [6, index] ] = Pawn.new([6, index], self, :white)
-    end
+  end
+  
+  def fill_back_row(color)
+    row_num = (color == :white) ? 7 : 0
+    pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
     
-    self[ [7, 0] ] = Rook.new([7,0], self, :white)
-    self[ [7, 1] ] = Knight.new([7, 1], self, :white)
-    self[ [7, 2] ] = Bishop.new([7, 2], self, :white)
-    self[ [7, 3] ] = Queen.new([7, 3], self, :white)
-    self[ [7, 4] ] = King.new([7, 4], self, :white)
-    self[ [7, 5] ] = Bishop.new([7, 5], self, :white)
-    self[ [7, 6] ] = Knight.new([7, 6], self, :white)
-    self[ [7, 7] ] = Rook.new([7, 7], self, :white)
+    pieces.each_with_index do |piece, index|
+      self[ [row_num, index] ] = piece.new([row_num, index], self, color)
+    end
   end
   
   def [](pos)
@@ -70,12 +65,12 @@ class Board
   
   def display
     print "   "
-    (0..7).each do |num|
+    ('A'..'H').each do |num|
       print " #{num}  "
     end
     puts
     @board.each_with_index do |row, index|
-      print "#{index} "
+      print "#{8 - index} "
       row.each do |piece|
         if piece.nil? 
           print "|  |"
