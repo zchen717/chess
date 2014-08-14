@@ -1,13 +1,12 @@
-require_relative 'pieces.rb'
-require_relative 'slider.rb'
-require_relative 'stepper.rb'
-require_relative 'queen.rb'
-require_relative 'rook.rb'
-require_relative 'bishop.rb'
-require_relative 'king.rb'
-require_relative 'knight.rb'
-require_relative 'pawn.rb'
-
+# require_relative 'pieces.rb'
+# require_relative 'slider.rb'
+# require_relative 'stepper.rb'
+# require_relative 'queen.rb'
+# require_relative 'rook.rb'
+# require_relative 'bishop.rb'
+# require_relative 'king.rb'
+# require_relative 'knight.rb'
+# require_relative 'pawn.rb'
 class Board
   attr_accessor :board
 
@@ -108,9 +107,10 @@ class Board
     end
   end
   
-  def move(start_pos, end_pos)
+  def move(start_pos, end_pos, color)
     piece = self[start_pos]
     # error if piece is nil
+    raise TypeError.new "Wrong color." unless piece.color == color
     raise TypeError.new "There's no piece there." if piece.nil?
     # error if piece.moves does not include end_pos
     raise "That isn't a valid move." unless piece.valid_moves.include?(end_pos)
@@ -135,10 +135,10 @@ if __FILE__ == $PROGRAM_NAME
   b = Board.new(true)
  
   # should checkmate 
-  b.move([6, 5], [5, 5])
-  b.move([1, 4], [3, 4])
-  b.move([6, 6], [4, 6])
-  b.move([0, 3], [4, 7])
+  b.move([6, 5], [5, 5], :white)
+  b.move([1, 4], [3, 4], :black)
+  b.move([6, 6], [4, 6], :white)
+  b.move([0, 3], [4, 7], :black)
   p b.checkmate?(:white)
   
 end
