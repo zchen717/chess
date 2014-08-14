@@ -123,15 +123,3 @@ class Board
   end
 end
 
-
-if __FILE__ == $PROGRAM_NAME
-  b = Board.new(true)
- 
-  # should checkmate 
-  b.move([6, 5], [5, 5], :white)
-  b.move([1, 4], [3, 4], :black)
-  b.move([6, 6], [4, 6], :white)
-  b.move([0, 3], [4, 7], :black)
-  p b.checkmate?(:white)
-  
-end
