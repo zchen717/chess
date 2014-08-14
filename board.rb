@@ -104,7 +104,6 @@ class Board
   
   def move(start_pos, end_pos, color)
     piece = self[start_pos]
-    # error if piece is nil
     raise TypeError.new "Wrong color." unless piece.color == color
     raise TypeError.new "There's no piece there." if piece.nil?
     # error if piece.moves does not include end_pos
