@@ -12,20 +12,30 @@ class Pawn < Piece
     (@color == :white) ? -1 : 1
   end
 
+<<<<<<< HEAD
   def at_start_row?
     pos[0] == ((color == :white) ? 6 : 1)
   end
 
+=======
+>>>>>>> af3e4af9efc1f02742d050b543a0d3c8e39bec5a
   def forward_moves
      x, y = @pos
      get_direction
      one_step = [x + get_direction, y]
      return [] unless in_bounds?(one_step[0], one_step[1]) && @board[ [one_step[0], one_step[1]] ].nil?
 
+<<<<<<< HEAD
     steps = [one_step]
     two_step = [x + 2 * get_direction, y]
     steps << two_step if at_start_row? && @board[ [two_step[0], two_step[1]] ].nil?
     steps
+=======
+     steps = [one_step]
+     two_step = [x + 2 * get_direction, y]
+     steps << two_step if @first_move && @board[ [two_step[0], two_step[1]] ].nil?
+     steps
+>>>>>>> af3e4af9efc1f02742d050b543a0d3c8e39bec5a
    end
 
    def capture_moves
