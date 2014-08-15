@@ -1,3 +1,4 @@
+# encoding: utf-8 .)
 require_relative 'board.rb'
 require_relative 'pieces.rb'
 require_relative 'slider.rb'
